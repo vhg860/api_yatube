@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+LIMIT_TEXT = 20
+
 User = get_user_model()
 
 
@@ -8,9 +10,10 @@ class Group(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     description = models.TextField()
+    verbose_name = "group"
 
     def __str__(self):
-        return self.title
+        return self.title[:LIMIT_TEXT]
 
 
 class Post(models.Model):
@@ -23,14 +26,17 @@ class Post(models.Model):
     )
     image = models.ImageField(
         upload_to='posts/', null=True, blank=True
-    )  # поле для картинки
+    )
     group = models.ForeignKey(
-        Group, on_delete=models.SET_NULL,
-        related_name='posts', blank=True, null=True
+        Group,
+        on_delete=models.SET_NULL,
+        related_name='posts',
+        blank=True,
+        null=True
     )
 
     def __str__(self):
-        return self.text
+        return self.text[:LIMIT_TEXT]
 
 
 class Comment(models.Model):
@@ -44,3 +50,6 @@ class Comment(models.Model):
     created = models.DateTimeField(
         'Дата добавления', auto_now_add=True, db_index=True
     )
+
+    def __str__(self):
+        return self.text[:LIMIT_TEXT]

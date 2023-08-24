@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.exceptions import PermissionDenied
 
-from .serialisers import PostSerializer, GroupSerializer, CommentSerializer
+from .serialisers import CommentSerializer, GroupSerializer, PostSerializer
 from posts.models import Post, Group
 
 
@@ -36,7 +36,7 @@ class CommentViewSet(viewsets.ModelViewSet):
         return get_object_or_404(Post, id=self.kwargs['id'])
 
     def get_queryset(self):
-        return self.get_post().comments
+        return self.get_post().comments.all()
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user, post=self.get_post())
