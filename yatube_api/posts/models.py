@@ -10,10 +10,12 @@ class Group(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     description = models.TextField()
-    verbose_name = "group"
 
     def __str__(self):
         return self.title[:LIMIT_TEXT]
+
+    class Meta:
+        verbose_name = "Group"
 
 
 class Post(models.Model):
