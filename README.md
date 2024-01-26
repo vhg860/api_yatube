@@ -38,11 +38,7 @@ python3 manage.py migrate
 ```sh
 python3 manage.py runserver
 ```
-* Для просмотра доступных эндпоинтов:
-```sh
-htpp://127.0.0.1:8000/redoc
-```
 ***
 ## Автор
 
-##### [Дмитрий](https://github.com/vhg860)
+#### [Дмитрий](https://github.com/vhg860)
